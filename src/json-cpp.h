@@ -39,17 +39,26 @@ std::vector<std::string> split(std::string teste, char spliter)
 
 
 struct json {
-    std::string ttt;
-    std::string second;
+    std::map<std::string,std::string> keyValueMap;
 
-    std::string operator [](std::string) const
+    std::string operator [](std::string key) const
     {
-        return second;
+        auto it = keyValueMap.find(key);
+        if (it != keyValueMap.end())
+        {
+            return it->second;
+        }
+        throw "key not found";
     }
 
     std::string & operator [](std::string key)
     {
-        return second;
+        auto it = keyValueMap.find(key);
+        if (it != keyValueMap.end())
+        {
+            return it->second;
+        }
+        throw "key not found";
     }
 
     static json from_string(std::string raw)
@@ -61,12 +70,13 @@ struct json {
             st++;
             st++;
             auto ed = parse_string(raw, st);
-            nnn.ttt = std::string(st, ed);
+            auto key = std::string(st, ed);
             ed++; // avoid :
             ed++;// avoid "
             ed++;// start with the string
             auto eded = parse_string(raw, ed);
-            nnn.second = std::string(ed, eded);
+            auto value = std::string(ed, eded);
+            nnn.keyValueMap[key] = value;
         }
         return nnn;
     }
