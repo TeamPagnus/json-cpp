@@ -31,10 +31,20 @@ for file in os.listdir("src"):
 os.makedirs("out", exist_ok=True)
 # create objects
 for cpp, obj in compileFiles:
-    print(subprocess.getoutput(f"g++ -c {cpp} -o {obj}"))
+    status, output = subprocess.getstatusoutput(f"g++ -g -c {cpp} -o {obj}")
+    if status == 0:
+        print(f"{cpp} OK")
+    else:
+        print(output)
+        sys.exit(1)
 
 # linker
 files = " ".join(linkerFiles)
-print(subprocess.getoutput(f"g++ {files} -o out/main"))
+status, output = subprocess.getstatusoutput(f"g++ {files} -o out/main.out")
+if status == 0:
+    print("Linker OK")
+else:
+    print(output)
+    sys.exit(1)
 
 
