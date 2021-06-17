@@ -33,5 +33,9 @@ int main()
     test = process(" { '  key  '   : '  value  ' } ");
     assert(test["  key  "] == "  value  ");
 
+    // nested json
+    test = process("{'key':{'nested-key':'nested-value'}}");
+    assert(test["key"]["nested-key"] == "nested-value");
+
     return 0;
 }
