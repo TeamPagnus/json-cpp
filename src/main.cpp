@@ -36,6 +36,12 @@ int main()
     // nested json
     test = process("{'key':{'nested-key':'nested-value'}}");
     assert(test["key"]["nested-key"] == "nested-value");
+    test = process(" { 'key' : { 'nested-key'  : 'nested-value' } } ");
+    assert(test["key"]["nested-key"] == "nested-value");
+    test = process("{'a':{'o':{'e':'u'}}}");
+    assert(test["a"]["o"]["e"] == "u");
+    test = process("{'a':{'k':{'u':'a{a}a'}}}");
+    assert(test["a"]["k"]["u"] == "a{a}a");
 
     return 0;
 }
