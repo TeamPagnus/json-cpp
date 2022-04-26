@@ -1,2 +1,2 @@
 # json-cpp
-Simple, efficient &amp; unlicenced Json library for c++
+Simple, efficient &amp; unlicensed Json library for c++
